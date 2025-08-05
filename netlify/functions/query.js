@@ -40,8 +40,7 @@ exports.handler = async (event) => {
     const { data, error } = await supabase
       .from('purchases')
       .select('buyer_id, purchase_time, product_type')
-      .eq('product_id', productId)
-      .single();
+      .eq('product_id', productId);
 
     if (error) {
       console.error('Supabase query error:', error);
@@ -51,16 +50,17 @@ exports.handler = async (event) => {
       };
     }
 
-    if (!data) {
+    if (!data || data.length === 0) {
       return {
         statusCode: 404,
-        body: JSON.stringify({ error: 'No purchase record found for this product' }),
+        body: JSON.stringify({ error: '您查询的商品ID不存在' }),
       };
     }
 
+    // 返回查询到的第一条数据（假设product_id是唯一的）
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify(data[0]),
     };
   } catch (error) {
     console.error('Error processing request:', error);

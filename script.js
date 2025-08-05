@@ -21,13 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (!response.ok) {
+                // 直接显示服务器返回的错误信息
                 throw new Error(result.error || `Request failed with status ${response.status}`);
             }
 
             renderResult(result);
         } catch (error) {
             console.error('查询出错:', error);
-            resultContainer.innerHTML = `<p>Error during query: ${error.message}</p>`;
+            resultContainer.innerHTML = `<p>${error.message}</p>`;
         }
     });
 
