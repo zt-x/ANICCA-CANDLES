@@ -1,7 +1,10 @@
 [build]
+  command = "echo 'Building...'"
   publish = "."
   command = ""
-
+[snippets]
+  location = "head"
+  file = "/includes/netlify-vars.js"
 [[snippets]]
   location = "head"
   file = "/includes/netlify-vars.js"
