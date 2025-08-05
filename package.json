@@ -1,0 +1,9 @@
+{
+  "name": "product-query-app",
+  "version": "1.0.0",
+  "description": "A simple product query interface",
+  "main": "index.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.7"
+  }
+}
