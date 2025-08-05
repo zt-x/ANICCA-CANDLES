@@ -1,14 +1,7 @@
 const { createClient } = require('@supabase/supabase-js');
 
 exports.handler = async (event) => {
-  // 从环境变量中获取Supabase配置
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_ANON_KEY;
-  
-  // 初始化Supabase客户端
-  const supabase = createClient(supabaseUrl, supabaseKey);
-  
-  // 从请求体中获取productId
+  // 检查请求方法
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -16,8 +9,26 @@ exports.handler = async (event) => {
     };
   }
 
+  // 从环境变量中获取Supabase配置
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+  // 验证环境变量是否存在
+  if (!supabaseUrl || !supabaseKey) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Missing Supabase configuration (URL or Key)' }),
+    };
+  }
+
+  // 初始化Supabase客户端
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
   try {
-    const { productId } = JSON.parse(event.body);
+    // 从请求体中获取productId
+    const body = event.body ? JSON.parse(event.body) : {};
+    const { productId } = body;
+
     if (!productId) {
       return {
         statusCode: 400,
@@ -33,9 +44,10 @@ exports.handler = async (event) => {
       .single();
 
     if (error) {
+      console.error('Supabase query error:', error);
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: error.message }),
+        body: JSON.stringify({ error: 'Database query failed', details: error.message }),
       };
     }
 
@@ -54,7 +66,7 @@ exports.handler = async (event) => {
     console.error('Error processing request:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal server error' }),
+      body: JSON.stringify({ error: 'Internal server error', details: error.message }),
     };
   }
 };
