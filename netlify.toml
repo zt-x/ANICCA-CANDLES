@@ -1,3 +1,7 @@
 [build]
   publish = "."
   command = ""
+
+[[snippets]]
+  location = "head"
+  file = "/includes/netlify-vars.js"

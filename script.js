@@ -1,6 +1,6 @@
-// Get Supabase credentials from environment variables
-const SUPABASE_URL = process.env.SUPABASE_URL || 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
+// These variables will be injected by Netlify Snippets.
+// Make sure to configure this in your Netlify site settings.
+const { SUPABASE_URL, SUPABASE_ANON_KEY } = window.netlify.env;
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
