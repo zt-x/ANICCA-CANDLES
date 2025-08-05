@@ -4,6 +4,3 @@
 [snippets]
   location = "head"
   file = "/includes/netlify-vars.js"
-[[snippets]]
-  location = "head"
-  file = "/includes/netlify-vars.js"
