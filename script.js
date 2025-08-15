@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('productSearchForm').addEventListener('submit', async (e) => {
+    document.getElementById('search-btn').addEventListener('click', async (e) => {
   e.preventDefault();
   const productId = document.getElementById('product-id').value;
 
