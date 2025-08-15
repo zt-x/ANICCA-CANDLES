@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('productQueryForm').addEventListener('submit', async (e) => {
+    document.getElementById('productSearchForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const productId = document.getElementById('productId').value;
+  const productId = document.getElementById('product-id').value;
 
   try {
     const response = await fetch('/.netlify/functions/query', {
