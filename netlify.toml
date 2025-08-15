@@ -2,6 +2,3 @@
   command = "echo 'Building...'"
   publish = "."
   functions = "netlify/functions"
-
-[[plugins]]
-  package = "netlify-plugin-git-lfs"
