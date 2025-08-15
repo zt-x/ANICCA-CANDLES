@@ -1,36 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('search-btn').addEventListener('click', async () => {
-        const productId = document.getElementById('product-id').value;
-        const resultContainer = document.getElementById('result-container');
-        resultContainer.innerHTML = '';
+    document.getElementById('productQueryForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const productId = document.getElementById('productId').value;
 
-        if (!productId) {
-            resultContainer.innerHTML = '<p>Please enter a Product ID.</p>';
-            return;
-        }
-
-        try {
-            const response = await fetch('/.netlify/functions/query', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ productId }),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                // 直接显示服务器返回的错误信息
-                throw new Error(result.error || `Request failed with status ${response.status}`);
-            }
-
-            renderResult(result);
-        } catch (error) {
-            console.error('查询出错:', error);
-            resultContainer.innerHTML = `<p>${error.message}</p>`;
-        }
+  try {
+    const response = await fetch('/.netlify/functions/query', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId })
     });
+
+    const data = await response.json();
+    
+    if (data.error) {
+      alert(`查询错误: ${data.error}`);
+      return;
+    }
+
+    // 构造带参数的跳转URL
+    const queryParams = new URLSearchParams({
+      buyer_id: data.buyer_id,
+      product_id: productId,
+      purchase_time: data.purchase_time
+    });
+    
+    window.location.href = `PRODUCTS/candles_${data.product_type}.html?${queryParams}`;
+
+  } catch (error) {
+    console.error('请求失败:', error);
+    alert('查询服务不可用，请稍后再试');
+  }
+});
 
     function renderResult(data) {
         const resultContainer = document.getElementById('result-container');
