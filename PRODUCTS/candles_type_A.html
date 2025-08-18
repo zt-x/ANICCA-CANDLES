@@ -327,7 +327,7 @@
     </style>
 </head>
 <body>
-    <div class="purchase-info">
+    <div class="purchase-info" style="display: none;">
         <p>用户ID: <span id="buyerId"></span></p>
         <p>产品编号: <span id="productId"></span></p>
         <p>购买时间: <span id="purchaseTime"></span></p>
@@ -477,6 +477,31 @@
     document.getElementById('buyerId').textContent = urlParams.get('buyer_id');
     document.getElementById('productId').textContent = urlParams.get('product_id');
     document.getElementById('purchaseTime').textContent = new Date(urlParams.get('purchase_time')).toLocaleString();
+    
+    // 更新页面中间的产品信息
+    const productIdFromUrl = urlParams.get('product_id');
+    const purchaseTimeFromUrl = urlParams.get('purchase_time');
+    
+    if (productIdFromUrl) {
+        // 更新唯一编号
+        const productIdElement = document.querySelector('.info-block:first-child .info-value');
+        if (productIdElement) {
+            productIdElement.textContent = productIdFromUrl;
+        }
+    }
+    
+    if (purchaseTimeFromUrl) {
+        // 更新售出时间
+        const purchaseTimeElement = document.querySelector('.info-block:nth-child(2) .info-value');
+        if (purchaseTimeElement) {
+            const formattedDate = new Date(purchaseTimeFromUrl).toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\//g, '.');
+            purchaseTimeElement.textContent = formattedDate;
+        }
+    }
 </script>
 </body>
 </html>
