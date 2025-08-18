@@ -3,20 +3,81 @@
 <head data-netlify-snippets>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Query</title>
+    <title>ANICCA - 产品查询门户</title>
     <link rel="stylesheet" href="style.css">
-</head>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Product Query</h1>
-        <div class="search-container">
-            <input type="text" id="product-id" placeholder="Enter Product ID">
-            <button id="search-btn">Search</button>
-        </div>
-        <div id="result-container"></div>
+    <!-- 背景星空效果 -->
+    <div class="stars-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
     </div>
+    
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 品牌标识区域 -->
+        <div class="brand-section">
+            <div class="mystical-symbol">✦</div>
+            <h1 class="brand-title">ANICCA</h1>
+            <div class="brand-subtitle">无常之美 · 永恒之光</div>
+            <div class="mystical-divider">
+                <span>◊</span>
+                <span>◊</span>
+                <span>◊</span>
+            </div>
+        </div>
+        
+        <!-- 查询区域 -->
+        <div class="query-section">
+            <div class="query-title">产品灵性查询</div>
+            <div class="query-subtitle">请输入您的产品编号，探寻专属的神秘体验</div>
+            
+            <div class="search-container">
+                <div class="input-wrapper">
+                    <input type="text" id="product-id" placeholder="输入产品编号" maxlength="20">
+                    <div class="input-glow"></div>
+                </div>
+                <button id="search-btn" class="search-button">
+                    <span class="button-text">开启探索</span>
+                    <div class="button-glow"></div>
+                </button>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div id="loading-container" class="loading-container hidden">
+                <div class="mystical-loader">
+                    <div class="loader-circle"></div>
+                    <div class="loader-symbol">✦</div>
+                </div>
+                <div class="loading-text">正在连接神秘维度...</div>
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <!-- 结果容器 -->
+            <div id="result-container" class="result-container"></div>
+        </div>
+        
+        <!-- 底部装饰 -->
+        <div class="footer-decoration">
+            <div class="mystical-pattern">
+                ◇ ◆ ◇ ◆ ◇
+            </div>
+        </div>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="script.js"></script>
 </body>
