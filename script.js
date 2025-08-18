@@ -87,7 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 显示成功消息并跳转
             showMysticalAlert('神秘维度连接成功，正在传送...', 'success');
             
-            // 延迟跳转以显示成功消息
+            // 添加页面切换特效
+            document.body.style.transition = 'opacity 0.5s ease-out';
+            document.body.style.opacity = '0';
+            
             setTimeout(() => {
                 const queryParams = new URLSearchParams({
                     buyer_id: data.buyer_id,
@@ -113,27 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingContainer.classList.remove('hidden');
         resultContainer.classList.remove('show');
         
-        // 添加随机加载文本变化
-        const loadingTexts = [
-            '正在连接神秘维度...',
-            '解读古老符文中...',
-            '穿越时空隧道...',
-            '唤醒沉睡的记忆...',
-            '感知灵性能量...'
-        ];
-        
-        let textIndex = 0;
-        const loadingTextElement = document.querySelector('.loading-text');
-        
-        const textInterval = setInterval(() => {
-            if (loadingContainer.classList.contains('hidden')) {
-                clearInterval(textInterval);
-                return;
-            }
-            
-            textIndex = (textIndex + 1) % loadingTexts.length;
-            loadingTextElement.textContent = loadingTexts[textIndex];
-        }, 800);
+        // 移除加载文案，只保留动态效果
     }
     
     // 隐藏加载状态
@@ -270,16 +253,24 @@ document.addEventListener('DOMContentLoaded', () => {
             cursor: not-allowed;
         }
         
-        .search-button.loading .button-text::after {
+        .search-button.loading .button-text {
+            opacity: 0;
+        }
+        
+        .search-button.loading::after {
             content: '';
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 20px;
+            height: 20px;
             border: 2px solid #1a1a2e;
             border-top: 2px solid transparent;
             border-radius: 50%;
-            margin-left: 8px;
             animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         #product-id:disabled {
