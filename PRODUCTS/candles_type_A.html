@@ -41,70 +41,7 @@
             background-repeat: no-repeat;
         }
 
-        /* 多层模糊解决方案 */
-        .blur-overlay {
-            position: fixed;
-            top: -50px;
-            left: -50px;
-            width: calc(100vw + 100px);
-            height: calc(100vh + 100px);
-            pointer-events: none;
-            z-index: 1;
-        }
 
-        .blur-overlay::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(0px);
-            transition: backdrop-filter 2s ease;
-        }
-
-        .blur-overlay.active::before {
-            backdrop-filter: blur(25px);
-        }
-
-        .blur-overlay::after {
-            content: '';
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            width: calc(100% - 50px);
-            height: calc(100% - 50px);
-            background: radial-gradient(
-                ellipse 600px 400px at 50% 50%,
-                rgba(128, 128, 128, 0) 0%,
-                rgba(128, 128, 128, 0) 30%,
-                rgba(128, 128, 128, 0.2) 60%,
-                rgba(128, 128, 128, 0.4) 100%
-            );
-            mix-blend-mode: multiply;
-            opacity: 0;
-            transition: all 2s ease;
-        }
-
-        .blur-overlay.active::after {
-            opacity: 1;
-        }
-
-        .edge-blur {
-            position: fixed;
-            top: -20px;
-            left: -20px;
-            width: calc(100vw + 40px);
-            height: calc(100vh + 40px);
-            backdrop-filter: blur(0px);
-            transition: backdrop-filter 2s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .edge-blur.active {
-            backdrop-filter: blur(15px);
-        }
 
         /* 第一页内容 */
         .page-one-content {
@@ -396,11 +333,10 @@
         <p>产品编号: <span id="productId"></span></p>
         <p>购买时间: <span id="purchaseTime"></span></p>
     </div>
-<div class="video-background" style="background-image: url('https://img.remit.ee/api/file/CgACAgUAAyEGAASHRsPbAAKE02ifHJS7fXTyeam9aG9vVnbYp5KeAAJiGwAClMD5VLOwc1KeqwERNgQ.gif');">
+<div class="video-background" style="background-image: url('./pic.gif');">
 </div>
 
-    <div class="edge-blur" id="edgeBlur"></div>
-    <div class="blur-overlay" id="blurOverlay"></div>
+
 
     <!-- 第一页 -->
     <div class="page" id="page1">
@@ -472,16 +408,12 @@
     </div>
 
     <script>
-        // 背景和模糊效果初始化
-        const blurOverlay = document.getElementById('blurOverlay');
-        const edgeBlur = document.getElementById('edgeBlur');
+        // 页面初始化
         const scrollIndicator = document.getElementById('scrollIndicator');
 
         // 页面加载后启动动画
         window.addEventListener('load', () => {
             setTimeout(() => {
-                blurOverlay.classList.add('active');
-                edgeBlur.classList.add('active');
                 startPageOneAnimation();
             }, 1000);
         });
